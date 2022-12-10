@@ -13,15 +13,9 @@ for (let i = 1; i <= finalDay.day; i++) {
 }
 const daysOfOneMonthString = [];
 for (let i = 0; i < daysOfOneMonth.length; i++) {
-  if (daysOfOneMonth[i].weekday === 6 && i < 9) {
+  if (daysOfOneMonth[i].weekday === 6) {
     daysOfOneMonthString.push(String(daysOfOneMonth[i].day).padStart(3) + "\n");
-  } else if (daysOfOneMonth[i].weekday === 6 && i >= 9) {
-    daysOfOneMonthString.push(String(daysOfOneMonth[i].day).padStart(3) + "\n");
-  } else if (
-    i < 9 &&
-    daysOfOneMonth[i].weekday !== 6 &&
-    daysOfOneMonth[i].weekday !== 7
-  ) {
+  } else if (daysOfOneMonth[i].weekday !== 7) {
     daysOfOneMonthString.push(String(daysOfOneMonth[i].day).padStart(3));
   } else if (daysOfOneMonth[i].weekday === 7) {
     daysOfOneMonthString.push(String(daysOfOneMonth[i].day).padStart(2));
