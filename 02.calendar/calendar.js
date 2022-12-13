@@ -15,24 +15,17 @@ const daysOfOneMonthString = [];
 for (let i = 0; i < daysOfOneMonth.length; i++) {
   daysOfOneMonthString.push(String(daysOfOneMonth[i].day).padStart(2));
 }
-const SPACES_OF_THE_HEAD = { 1: 5, 2: 8, 3: 11, 4: 14, 5: 17, 6: 20, 7: 2 };
+const SPACES_OF_THE_HEAD = { 1: 3, 2: 6, 3: 9, 4: 12, 5: 15, 6: 18, 7: 0 };
 console.log(`      ${date.month}月 ${date.year}`);
 console.log("日 月 火 水 木 金 土");
+process.stdout.write(String(" ".repeat(SPACES_OF_THE_HEAD[firstDay.weekday])));
+
 for (let i = 0; i < daysOfOneMonthString.length; i++) {
-  if (i === 0) {
-    process.stdout.write(
-      String(
-        daysOfOneMonthString[i].padStart(SPACES_OF_THE_HEAD[firstDay.weekday])
-      )
-    );
-  } else if (daysOfOneMonth[i].weekday === 6) {
-    process.stdout.write(" ");
+  if (daysOfOneMonth[i].weekday === 6) {
     process.stdout.write(String(daysOfOneMonthString[i]));
     process.stdout.write(String("\n"));
-  } else if (daysOfOneMonth[i].weekday === 7) {
-    process.stdout.write(String(daysOfOneMonthString[i]));
   } else {
-    process.stdout.write(" ");
     process.stdout.write(String(daysOfOneMonthString[i]));
+    process.stdout.write(" ");
   }
 }
