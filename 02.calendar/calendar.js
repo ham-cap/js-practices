@@ -23,11 +23,12 @@ if (firstDay.weekday !== 7) {
 }
 
 for (let i = 0; i < daysOfOneMonthString.length; i++) {
+  process.stdout.write(String(daysOfOneMonthString[i]));
   if (daysOfOneMonth[i].weekday === 6) {
-    process.stdout.write(String(daysOfOneMonthString[i]));
+    // process.stdout.write(String(daysOfOneMonthString[i]));
     process.stdout.write(String("\n"));
   } else {
-    process.stdout.write(String(daysOfOneMonthString[i]));
+    // process.stdout.write(String(daysOfOneMonthString[i]));
     process.stdout.write(" ");
   }
 }
