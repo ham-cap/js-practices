@@ -18,17 +18,13 @@ for (let i = 0; i < daysOfOneMonth.length; i++) {
 
 console.log(`      ${date.month}月 ${date.year}`);
 console.log("日 月 火 水 木 金 土");
-if (firstDay.weekday !== 7) {
-  process.stdout.write(String(" ".repeat(3 * firstDay.weekday)));
-}
+process.stdout.write(String(" ".repeat(3 * (firstDay.weekday % 7))));
 
 for (let i = 0; i < daysOfOneMonthString.length; i++) {
   process.stdout.write(String(daysOfOneMonthString[i]));
   if (daysOfOneMonth[i].weekday === 6) {
-    // process.stdout.write(String(daysOfOneMonthString[i]));
     process.stdout.write(String("\n"));
   } else {
-    // process.stdout.write(String(daysOfOneMonthString[i]));
     process.stdout.write(" ");
   }
 }
