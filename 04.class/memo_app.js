@@ -2,11 +2,11 @@ import {Memo} from './memo.js'
 import * as readline from "readline";
 import sqlite3 from "sqlite3";
 const db = new sqlite3.Database('memo_app');
+//const { Confirm } = require('enquirer');
 const reader = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
-
 if (process.stdin.isTTY) {
   //一覧表示
   if (process.argv[2] == '-l'){
@@ -18,16 +18,11 @@ if (process.stdin.isTTY) {
         rows.forEach(function (row) {
           const array = row.body.split(',');
           console.log(array[0]);
+          db.close();
         });
       })
-      db.close((err) => {
-        if(err){
-          throw err;
-        }
-        db.close();
-      });
     });
-  };
+  }
 } else {
   // 入力の受け取り
   let lines = [];
