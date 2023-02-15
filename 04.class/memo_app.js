@@ -33,7 +33,7 @@ if (process.stdin.isTTY) {
       rows.forEach(function (row) {
         const array = row.body.split(',');
         memos.push(array);
-        titles.push({name: array[0], message: `messageが表示されてる${array[0]}`, value: index});
+        titles.push({name: array[0], message: array[0], value: index});
         index += 1;
       });
       const prompt = new Select({
@@ -48,7 +48,35 @@ if (process.stdin.isTTY) {
         .then(answer => memos[answer - 1].forEach(line => console.log(line)))
         .catch(console.error);
     });
-      };
+      }else if (process.argv[2] == '-d'){
+        db.all('SELECT id, body FROM memos', function(err, rows) {
+          if (err) {
+            throw err;
+          }
+          console.log(rows[0].id);
+          const memos = []
+          const titles = []
+          //let index = 0
+          rows.forEach(function (row) {
+            const body = row.body.split(',');
+            const index = row.id;
+            memos.push(body);
+            titles.push({name:body[0], message: body[0], value: index});
+            //index += 1;
+          });
+          const prompt = new Select({
+            name: 'memos',
+            message: 'Choose a memo.',
+            choices: titles,
+            result() {
+              return this.focused.value;
+            }
+          });
+      prompt.run()
+        .then(id => db.run("DELETE FROM memos WHERE id = ?", id))
+        .catch(console.error);
+    });
+      }
 } else {
   // 入力の受け取り
   let lines = [];
