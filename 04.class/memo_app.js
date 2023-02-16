@@ -23,29 +23,28 @@ if (process.stdin.isTTY) {
       });
     });
   }else if (process.argv[2] == '-r'){
-    db.all('SELECT body FROM memos', function(err, rows) {
+    db.all('SELECT id, body FROM memos', function(err, rows) {
       if (err) {
         throw err;
       }
       const memos = []
       const titles = []
-      let index = 1
       rows.forEach(function (row) {
-        const array = row.body.split(',');
-        memos.push(array);
-        titles.push({name: array[0], message: array[0], value: index});
-        index += 1;
+        const body = row.body.split(',');
+        const id = row.id;
+        memos.push(body);
+        titles.push({name: body[0], message: body[0], value: id});
       });
       const prompt = new Select({
         name: 'memos',
-        message: 'Choose a memo.',
+        message: 'Choose a memo you want to read.',
         choices: titles,
         result() {
           return this.focused.value;
         }
       });
       prompt.run()
-        .then(answer => memos[answer - 1].forEach(line => console.log(line)))
+        .then(id => memos[id - 1].forEach(line => console.log(line)))
         .catch(console.error);
     });
       }else if (process.argv[2] == '-d'){
@@ -53,20 +52,17 @@ if (process.stdin.isTTY) {
           if (err) {
             throw err;
           }
-          console.log(rows[0].id);
           const memos = []
           const titles = []
-          //let index = 0
           rows.forEach(function (row) {
             const body = row.body.split(',');
-            const index = row.id;
+            const id = row.id;
             memos.push(body);
-            titles.push({name:body[0], message: body[0], value: index});
-            //index += 1;
+            titles.push({name: body[0], message: body[0], value: id});
           });
           const prompt = new Select({
             name: 'memos',
-            message: 'Choose a memo.',
+            message: 'Choose a memo you want to delete.',
             choices: titles,
             result() {
               return this.focused.value;
