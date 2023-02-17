@@ -1,4 +1,5 @@
 const Memo = require('./memo.js');
+const DbOperator = require('./db_operator.js');
 const readline = require('node:readline/promises');
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('memo_app');
@@ -23,30 +24,32 @@ if (process.stdin.isTTY) {
       });
     });
   }else if (process.argv[2] == '-r'){
-    db.all('SELECT id, body FROM memos', function(err, rows) {
-      if (err) {
-        throw err;
-      }
-      const memos = []
-      const titles = []
-      rows.forEach(function (row) {
-        const body = row.body.split(',');
-        const id = row.id;
-        memos.push(body);
-        titles.push({name: body[0], message: body[0], value: id});
-      });
-      const prompt = new Select({
-        name: 'memos',
-        message: 'Choose a memo you want to read.',
-        choices: titles,
-        result() {
-          return this.focused.value;
-        }
-      });
-      prompt.run()
-        .then(id => memos[id - 1].forEach(line => console.log(line)))
-        .catch(console.error);
-    });
+    const dbOperator = new DbOperator();
+    dbOperator.displayMemosAndLetUsersChooseOneOfThem();
+    //db.all('SELECT id, body FROM memos', function(err, rows) {
+    //  if (err) {
+    //    throw err;
+    //  }
+    //  const memos = []
+    //  const titles = []
+    //  rows.forEach(function (row) {
+    //    const body = row.body.split(',');
+    //    const id = row.id;
+    //    memos.push(body);
+    //    titles.push({name: body[0], message: body[0], value: id});
+    //  });
+      //const prompt = new Select({
+      //  name: 'memos',
+      //  message: 'Choose a memo you want to read.',
+      //  choices: titles,
+      //  result() {
+      //    return this.focused.value;
+      //  }
+      //});
+      //prompt.run()
+      //  .then(id => memos[id - 1].forEach(line => console.log(line)))
+      //  .catch(console.error);
+    //});
       }else if (process.argv[2] == '-d'){
         db.all('SELECT id, body FROM memos', function(err, rows) {
           if (err) {
