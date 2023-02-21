@@ -3,28 +3,38 @@ const db = new sqlite3.Database('memo_app');
 const { Select } = require('enquirer');
 module.exports = class DbOperator {
   displayMemosAndLetUsersChooseOneOfThem(){
-    const selectMemosData = function() {
+    const makeArraysOfMemosAndTitles = function() {
       return new Promise((resolve, reject) => {
         db.serialize(() => {
           db.all('SELECT id, body FROM memos', function(err, rows) {
             if (err) return reject(err)
-            resolve(rows)
+            const memos = []
+            const titles = []
+            rows.forEach(function (row) {
+              const body = row.body.split(',');
+              const id = row.id;
+              memos.push(body);
+              titles.push({name: body[0], message: body[0], value: id});
+            })
+            resolve([memos, titles])
           })
         })
       });
     }
     
-    selectMemosData().then(rows => {
-      const memos = []
-      const titles = []
-      rows.forEach(function (row) {
-        const body = row.body.split(',');
-        const id = row.id;
-        memos.push(body);
-        titles.push({name: body[0], message: body[0], value: id});
-      })
-      return [memos, titles]
-    }).then(([memos, titles]) => {
+    makeArraysOfMemosAndTitles().
+    //then(rows => {
+    //  const memos = []
+    //  const titles = []
+    //  rows.forEach(function (row) {
+    //    const body = row.body.split(',');
+    //    const id = row.id;
+    //    memos.push(body);
+    //    titles.push({name: body[0], message: body[0], value: id});
+    //  })
+    //  return [memos, titles]
+    //})
+      then(([memos, titles]) => {
       const prompt = new Select({
         name: 'memos',
         message: 'Choose a memo you want to read.',
