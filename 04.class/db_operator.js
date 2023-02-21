@@ -24,24 +24,22 @@ module.exports = class DbOperator {
         titles.push({name: body[0], message: body[0], value: id});
       })
       return [memos, titles]
-    }).then((memos, titles) => {
-      console.log(memos);
-      console.log(titles);
+    }).then(([memos, titles]) => {
+      const prompt = new Select({
+        name: 'memos',
+        message: 'Choose a memo you want to read.',
+        choices: titles,
+        result() {
+          return this.focused.value;
+        }
+      });
+      prompt.run()
+        .then(id => memos[id - 1].forEach(line => console.log(line)))
+        .catch(console.error);
       })
   };
 };
 
-      //const prompt = new Select({
-      //  name: 'memos',
-      //  message: 'Choose a memo you want to read.',
-      //  choices: titles,
-      //  result() {
-      //    return this.focused.value;
-      //  }
-      //});
-      //prompt.run()
-      //  .then(id => memos[id - 1].forEach(line => console.log(line)))
-      //  .catch(console.error);
     //});
     //console.log(memos)
     //console.log(titles)
