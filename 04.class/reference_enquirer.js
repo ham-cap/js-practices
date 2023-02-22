@@ -1,7 +1,7 @@
 const DbOperator = require('./db_operator.js');
 const dbOperator = new DbOperator();
 const { Select } = require('enquirer');
-module.exports = class referenceEnquirer {
+module.exports = class ReferenceEnquirer {
   show(){
     dbOperator.makeArraysOfMemosAndTitles()
       .then(([memos, titles]) => {

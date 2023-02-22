@@ -1,5 +1,12 @@
+const Memo = require('./memo.js');
+const readline = require('node:readline/promises');
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('memo_app');
+const reader = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
 module.exports = class DbOperator {
   makeArraysOfMemosAndTitles() {
     return new Promise((resolve, reject) => {
@@ -51,6 +58,21 @@ module.exports = class DbOperator {
           resolve(titles)
         })
       })
+    });
+  }
+
+  create (){
+    let lines = [];
+    reader.on('line', (line) => {
+      lines.push(line);
+    });
+    
+    reader.on("close", () => {
+      const memo = new Memo(lines);
+      db.serialize(() => {
+        db.run('CREATE TABLE if not exists memos(id INTEGER PRIMARY KEY, body TEXT)');
+        db.run('INSERT INTO memos (body) values(?)', [memo.lines]);
+      });
     });
   }
 };
