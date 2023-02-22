@@ -10,18 +10,23 @@ const reader = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
+
+let selectedOption = ''
+
+switch (process.argv[2]) {
+  case "-l":
+    selectedOption = new ListProvider();
+    break;
+  case "-r":
+    selectedOption = new ReferenceEnquirer();
+    break;
+  case "-d":
+    selectedOption = new DestroyEnquirer();
+    break;
+};
+
 if (process.stdin.isTTY) {
-  //一覧表示
-  if (process.argv[2] == '-l'){
-    const listProvider = new ListProvider();
-    listProvider.show();
-  }else if (process.argv[2] == '-r'){
-    const referenceEnquirer = new ReferenceEnquirer();
-    referenceEnquirer.show();
-  }else if (process.argv[2] == '-d'){
-    const destroyEnquirer = new DestroyEnquirer();
-    destroyEnquirer.show();
-  }
+  selectedOption.show();
 } else {
   // 入力の受け取り
   let lines = [];
