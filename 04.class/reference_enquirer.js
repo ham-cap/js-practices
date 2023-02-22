@@ -14,7 +14,7 @@ module.exports = class ReferenceEnquirer {
           }
         });
         prompt.run()
-          .then(id => memos[id - 1].forEach(line => console.log(line)))
+          .then(id => memos[id].forEach(line => console.log(line)))
           .catch(console.error);
       })
   }

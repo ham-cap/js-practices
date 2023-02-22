@@ -1,7 +1,7 @@
 const DbOperator = require('./db_operator.js');
 const dbOperator = new DbOperator();
 const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('memo_app');
+const db = new sqlite3.Database('memo_app.sqlite3');
 const { Select } = require('enquirer');
 module.exports = class DestroyEnquirer {
   show(){
