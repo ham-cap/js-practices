@@ -1,9 +1,11 @@
 const Memo = require('./memo.js');
 const ReferenceEnquirer = require('./reference_enquirer');
+const ListProvider = require('./list_provider');
+const DestroyEnquirer = require('./destroy_enquirer');
 const readline = require('node:readline/promises');
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('memo_app');
-const { Select } = require('enquirer');
+//const { Select } = require('enquirer');
 const reader = readline.createInterface({
   input: process.stdin,
   output: process.stdout
@@ -11,46 +13,14 @@ const reader = readline.createInterface({
 if (process.stdin.isTTY) {
   //一覧表示
   if (process.argv[2] == '-l'){
-    db.serialize(() => {
-      db.all('SELECT body FROM memos', function(err, rows) {
-        if (err) {
-          throw err;
-        }
-        rows.forEach(function (row) {
-          const array = row.body.split(',');
-          console.log(array[0]);
-          db.close();
-        });
-      });
-    });
+    const listProvider = new ListProvider();
+    listProvider.show();
   }else if (process.argv[2] == '-r'){
     const referenceEnquirer = new ReferenceEnquirer();
-    referenceEnquirer.ask();
+    referenceEnquirer.show();
   }else if (process.argv[2] == '-d'){
-    db.all('SELECT id, body FROM memos', function(err, rows) {
-      if (err) {
-        throw err;
-      }
-      const memos = []
-      const titles = []
-      rows.forEach(function (row) {
-        const body = row.body.split(',');
-        const id = row.id;
-        memos.push(body);
-        titles.push({name: body[0], message: body[0], value: id});
-      });
-      const prompt = new Select({
-        name: 'memos',
-        message: 'Choose a memo you want to delete.',
-        choices: titles,
-        result() {
-          return this.focused.value;
-        }
-      });
-  prompt.run()
-    .then(id => db.run("DELETE FROM memos WHERE id = ?", id))
-    .catch(console.error);
-    });
+    const destroyEnquirer = new DestroyEnquirer();
+    destroyEnquirer.show();
   }
 } else {
   // 入力の受け取り
