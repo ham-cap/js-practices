@@ -1,10 +1,10 @@
-const DbOperator = require('./db_operator.js');
+const DbOperator = require("./db_operator.js");
 const dbOperator = new DbOperator();
-const ListProvider = require('./list_provider');
-const ReferenceEnquirer = require('./reference_enquirer');
-const DestroyEnquirer = require('./destroy_enquirer');
+const ListProvider = require("./list_provider");
+const ReferenceEnquirer = require("./reference_enquirer");
+const DestroyEnquirer = require("./destroy_enquirer");
 
-let selectedOption = ''
+let selectedOption = "";
 
 switch (process.argv[2]) {
   case "-l":
@@ -16,10 +16,10 @@ switch (process.argv[2]) {
   case "-d":
     selectedOption = new DestroyEnquirer();
     break;
-};
+}
 
 if (process.stdin.isTTY) {
   selectedOption.show();
 } else {
   dbOperator.create();
-};
+}
