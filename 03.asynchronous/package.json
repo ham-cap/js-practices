@@ -4,7 +4,7 @@
     "lint": "prettier --check . && eslint ."
   },
   "devDependencies": {
-    "eslint": "^8.31.0",
+    "eslint": "^8.24.0",
     "eslint-config-prettier": "^8.5.0",
     "prettier": "^2.7.1"
   }
