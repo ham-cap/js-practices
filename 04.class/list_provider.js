@@ -4,9 +4,10 @@ const dbOperator = new DbOperator();
 module.exports = class ListProvider {
   show() {
     dbOperator.makeArrayOfTitles().then((titles) => {
-      titles.forEach(function (row) {
-        console.log(row);
-      });
+      titles.forEach(title =>
+        console.log(title)
+      );
+      process.exit(0)
     });
   }
 };

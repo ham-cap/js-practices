@@ -1,8 +1,8 @@
-const DbOperator = require("./db_operator.js");
-const dbOperator = new DbOperator();
 const ListProvider = require("./list_provider");
 const ReferenceEnquirer = require("./reference_enquirer");
 const DestroyEnquirer = require("./destroy_enquirer");
+const MemoCreator = require("./memo_creator.js")
+const memoCreator = new MemoCreator();
 
 let selectedOption = "";
 
@@ -21,5 +21,5 @@ switch (process.argv[2]) {
 if (process.stdin.isTTY) {
   selectedOption.show();
 } else {
-  dbOperator.create();
+  memoCreator.create();
 }
