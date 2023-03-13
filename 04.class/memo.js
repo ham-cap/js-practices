@@ -1,5 +1,6 @@
 module.exports = class Memo {
-  constructor(lines) {
-    this.lines = lines;
+  constructor(id, body) {
+    this.id = id;
+    this.body = body;
   }
 };

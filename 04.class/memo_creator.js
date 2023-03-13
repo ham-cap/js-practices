@@ -1,4 +1,3 @@
-const Memo = require("./memo.js");
 const readline = require("node:readline/promises");
 const DbOperator = require("./db_operator.js");
 const dbOperator = new DbOperator();
@@ -15,8 +14,7 @@ module.exports = class MemoCreator {
     });
 
     reader.on("close", () => {
-      const memo = new Memo(lines);
-      dbOperator.create(memo);
+      dbOperator.create(lines);
     });
   }
 }

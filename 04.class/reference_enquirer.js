@@ -3,7 +3,11 @@ const dbOperator = new DbOperator();
 const { Select } = require("enquirer");
 module.exports = class ReferenceEnquirer {
   show() {
-    dbOperator.makeArraysOfMemosAndTitles().then(([memos, titles]) => {
+    dbOperator.loadMemos().then((memos) => {
+      const titles = [];
+      memos.forEach(function (memo) {
+        titles.push({ name: memo.body[0], message: memo.body[0], value: memo.id })
+      })
       const prompt = new Select({
         name: "memos",
         message: "Choose a memo you want to read.",
@@ -14,7 +18,10 @@ module.exports = class ReferenceEnquirer {
       });
       prompt
         .run()
-        .then((id) => memos[id].forEach((line) => console.log(line)))
+        .then((id) => {
+          const selectedMemo = memos.find(memo => memo.id === id);
+          selectedMemo.body.map(line => console.log(line))
+        })
         .catch(console.error);
     });
   }
