@@ -19,22 +19,6 @@ module.exports = class DbOperator {
     });
   }
 
-  makeArrayOfTitles() {
-    return new Promise((resolve, reject) => {
-      db.serialize(() => {
-        db.all("SELECT body FROM memos", function (err, rows) {
-          if (err) return reject(err);
-          const titles = [];
-          rows.forEach(function (row) {
-            const body = row.body.split(",");
-            titles.push(body[0]);
-          });
-          resolve(titles);
-        });
-      });
-    });
-  }
-
   makeArrayOfTitlesWithId() {
     return new Promise((resolve, reject) => {
       db.serialize(() => {
