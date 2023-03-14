@@ -1,5 +1,6 @@
 const Memo = require("./memo.js");
 const sqlite3 = require("sqlite3").verbose();
+
 const db = new sqlite3.Database("memo_app.sqlite3");
 
 module.exports = class DbOperator {

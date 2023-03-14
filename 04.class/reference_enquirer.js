@@ -1,9 +1,11 @@
 const Memo = require("./memo.js");
 const DbOperator = require("./db_operator.js");
-const dbOperator = new DbOperator();
 const { Select } = require("enquirer");
+
+const dbOperator = new DbOperator();
+
 module.exports = class ReferenceEnquirer {
-  show() {
+  start() {
     dbOperator.loadMemos().then((memos) => {
       const titles = Memo.collectTitles(memos)
       const prompt = new Select({
