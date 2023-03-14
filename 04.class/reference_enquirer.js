@@ -1,13 +1,11 @@
+const Memo = require("./memo.js");
 const DbOperator = require("./db_operator.js");
 const dbOperator = new DbOperator();
 const { Select } = require("enquirer");
 module.exports = class ReferenceEnquirer {
   show() {
     dbOperator.loadMemos().then((memos) => {
-      const titles = [];
-      memos.forEach(function (memo) {
-        titles.push({ name: memo.body[0], message: memo.body[0], value: memo.id })
-      })
+      const titles = Memo.collectTitles(memos)
       const prompt = new Select({
         name: "memos",
         message: "Choose a memo you want to read.",

@@ -1,13 +1,11 @@
+const Memo = require("./memo.js");
 const DbOperator = require("./db_operator.js");
 const dbOperator = new DbOperator();
 
 module.exports = class ListProvider {
   show() {
     dbOperator.loadMemos().then((memos) => {
-      const titles = [];
-      memos.forEach(function (memo) {
-        titles.push({ name: memo.body[0], message: memo.body[0] })
-      })
+      const titles = Memo.collectTitles(memos)
       titles.forEach(title =>
         console.log(title.name)
       );
