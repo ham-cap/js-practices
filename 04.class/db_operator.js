@@ -12,8 +12,8 @@ module.exports = class DbOperator {
           const memos = [];
           rows.forEach(function (row) {
             const body = row.body.split(",");
-            memos.push(new Memo(row.id, body))
-          })
+            memos.push(new Memo(row.id, body));
+          });
           resolve(memos);
         });
       });
@@ -21,11 +21,11 @@ module.exports = class DbOperator {
   }
 
   create(lines) {
-      db.serialize(() => {
-        db.run(
-          "CREATE TABLE if not exists memos(id INTEGER PRIMARY KEY, body TEXT)"
-        );
-        db.run("INSERT INTO memos (body) values(?)", [lines]);
-      });
+    db.serialize(() => {
+      db.run(
+        "CREATE TABLE if not exists memos(id INTEGER PRIMARY KEY, body TEXT)"
+      );
+      db.run("INSERT INTO memos (body) values(?)", [lines]);
+    });
   }
 };

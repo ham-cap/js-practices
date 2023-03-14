@@ -19,4 +19,4 @@ module.exports = class MemoCreator {
       dbOperator.create(lines);
     });
   }
-}
+};

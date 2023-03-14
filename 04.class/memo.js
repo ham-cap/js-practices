@@ -7,8 +7,12 @@ module.exports = class Memo {
   static collectTitles(memos) {
     const titles = [];
     memos.forEach(function (memo) {
-      titles.push({ name: memo.body[0], message: memo.body[0], value: memo.id })
-    })
+      titles.push({
+        name: memo.body[0],
+        message: memo.body[0],
+        value: memo.id,
+      });
+    });
     return titles;
   }
 };

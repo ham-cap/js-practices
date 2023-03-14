@@ -1,7 +1,7 @@
 const ListProvider = require("./list_provider");
 const ReferenceEnquirer = require("./reference_enquirer");
 const DestroyEnquirer = require("./destroy_enquirer");
-const MemoCreator = require("./memo_creator.js")
+const MemoCreator = require("./memo_creator.js");
 
 const memoCreator = new MemoCreator();
 

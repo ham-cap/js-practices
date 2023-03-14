@@ -9,7 +9,7 @@ const db = new sqlite3.Database("memo_app.sqlite3");
 module.exports = class DestroyEnquirer {
   start() {
     dbOperator.loadMemos().then((memos) => {
-      const titles = Memo.collectTitles(memos)
+      const titles = Memo.collectTitles(memos);
       const prompt = new Select({
         name: "memos",
         message: "Choose a memo you want to delete.",
