@@ -19,23 +19,6 @@ module.exports = class DbOperator {
     });
   }
 
-  makeArrayOfTitlesWithId() {
-    return new Promise((resolve, reject) => {
-      db.serialize(() => {
-        db.all("SELECT id, body FROM memos", function (err, rows) {
-          if (err) return reject(err);
-          const titles = [];
-          rows.forEach(function (row) {
-            const body = row.body.split(",");
-            const id = row.id;
-            titles.push({ name: body[0], message: body[0], value: id });
-          });
-          resolve(titles);
-        });
-      });
-    });
-  }
-
   create(lines) {
       db.serialize(() => {
         db.run(
