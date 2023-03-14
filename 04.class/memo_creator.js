@@ -9,14 +9,14 @@ const reader = readline.createInterface({
 });
 
 module.exports = class MemoCreator {
-  create() {
+  save() {
     let lines = [];
     reader.on("line", (line) => {
       lines.push(line);
     });
 
     reader.on("close", () => {
-      dbOperator.create(lines);
+      dbOperator.save(lines);
     });
   }
 };

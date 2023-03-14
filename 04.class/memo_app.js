@@ -22,5 +22,5 @@ switch (process.argv[2]) {
 if (process.stdin.isTTY) {
   selectedOption.start();
 } else {
-  memoCreator.create();
+  memoCreator.save();
 }
