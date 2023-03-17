@@ -4,15 +4,15 @@ module.exports = class Memo {
     this.body = body;
   }
 
-  static collectTitles(memos) {
-    const titles = [];
+  static createChoices(memos) {
+    const choices = [];
     memos.forEach(function (memo) {
-      titles.push({
+      choices.push({
         name: memo.body[0],
         message: memo.body[0],
         value: memo.id,
       });
     });
-    return titles;
+    return choices;
   }
 };

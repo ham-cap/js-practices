@@ -7,11 +7,11 @@ const dbOperator = new DbOperator();
 module.exports = class ReferenceEnquirer {
   start() {
     dbOperator.loadMemos().then((memos) => {
-      const titles = Memo.collectTitles(memos);
+      const choices = Memo.createChoices(memos);
       const prompt = new Select({
         name: "memos",
         message: "Choose a memo you want to read.",
-        choices: titles,
+        choices: choices,
         result() {
           return this.focused.value;
         },

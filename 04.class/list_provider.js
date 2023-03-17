@@ -6,8 +6,8 @@ const dbOperator = new DbOperator();
 module.exports = class ListProvider {
   start() {
     dbOperator.loadMemos().then((memos) => {
-      const titles = Memo.collectTitles(memos);
-      titles.forEach((title) => console.log(title.name));
+      const choices = Memo.createChoices(memos);
+      choices.forEach((choice) => console.log(choice.name));
       process.exit(0);
     });
   }
