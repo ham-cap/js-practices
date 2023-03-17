@@ -3,8 +3,6 @@ const ReferenceEnquirer = require("./reference_enquirer");
 const DestroyEnquirer = require("./destroy_enquirer");
 const MemoCreator = require("./memo_creator.js");
 
-const memoCreator = new MemoCreator();
-
 let selectedOption = "";
 
 switch (process.argv[2]) {
@@ -22,5 +20,6 @@ switch (process.argv[2]) {
 if (process.stdin.isTTY) {
   selectedOption.start();
 } else {
+  const memoCreator = new MemoCreator();
   memoCreator.save();
 }
