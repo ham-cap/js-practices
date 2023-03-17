@@ -20,7 +20,7 @@ module.exports = class DbOperator {
     });
   }
 
-  save(lines) {
+  saveMemos(lines) {
     db.serialize(() => {
       db.run(
         "CREATE TABLE if not exists memos(id INTEGER PRIMARY KEY, body TEXT)"

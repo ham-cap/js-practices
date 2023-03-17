@@ -16,7 +16,7 @@ module.exports = class MemoCreator {
     });
 
     reader.on("close", () => {
-      dbOperator.save(lines);
+      dbOperator.saveMemos(lines);
     });
   }
 };
